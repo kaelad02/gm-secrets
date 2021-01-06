@@ -1,23 +1,21 @@
 {
-  "name": "module-name",
-  "title": "Module Title",
-  "description": "description",
-  "version": "<VERSION NUMBER HERE>",
+  "name": "gm-secrets",
+  "title": "GM Secret Block",
+  "description": "Adds a type of formatting block to text editors that only GMs can see and edit.",
+  "version": "1.0.0",
   "author": "Cole Schultz (cole#9640)",
   "esmodules": [
-    "MY SCRIPT"
+    "gm-secret.js"
   ],
   "styles": [
-    "MY STYLESHEET"
+    "gm-secret-style.css"
   ],
-  "minimumCoreVersion": "0.6.4",
-  "compatibleCoreVersion": "0.6.4",
-	"url": "https://github.com/schultzcole/<REPO_URL_HERE>",
-	"manifest": "https://raw.githubusercontent.com/schultzcole/<REPO_URL_HERE>/master/module.json",
-	"download": "https://github.com/schultzcole/<REPO_URL_HERE>/archive/<VERSION NUMBER HERE>.zip",
-	"license": "https://github.com/schultzcole/<REPO_URL_HERE>/blob/<VERSION NUMBER HERE>/LICENSE",
-	"readme": "https://github.com/schultzcole/<REPO_URL_HERE>/blob/<VERSION NUMBER HERE>/README.md",
-	"changelog": "https://github.com/schultzcole/<REPO_URL_HERE>/blob/<VERSION NUMBER HERE>/CHANGELOG.md"
+  "minimumCoreVersion": "0.7.6",
+  "compatibleCoreVersion": "0.7.9",
+	"url": "https://github.com/schultzcole/FVTT-GM-Secret-Block",
+	"manifest": "https://raw.githubusercontent.com/schultzcole/FVTT-GM-Secret-Block/master/module.json",
+	"download": "https://github.com/schultzcole/FVTT-GM-Secret-Block/archive/1.0.0.zip",
+	"license": "https://github.com/schultzcole/FVTT-GM-Secret-Block/blob/1.0.0/LICENSE",
+	"readme": "https://github.com/schultzcole/FVTT-GM-Secret-Block/blob/1.0.0/README.md",
+	"changelog": "https://github.com/schultzcole/FVTT-GM-Secret-Block/blob/1.0.0/CHANGELOG.md"
 }
-
- 
