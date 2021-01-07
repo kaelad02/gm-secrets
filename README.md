@@ -26,7 +26,10 @@ There are currently a few issues that allow players to be able to access hidden 
 
 1. A player can `CTRL+A` to select all text, then remove formatting.
    - *This might be fixable if we can prevent the user from selecting hidden elements.*
-2. A player can view the source of the editor contents.
+2. A player can inadvertently delete text in a GM Secret block using backspacing.
+   This method can also be used to inadvertently add new content to a GM Secret block.
+   To the user it appears as though their text completely disappears.
+3. A player can view the source of the editor contents.
    - *Won't fix.*
 
 ## License
