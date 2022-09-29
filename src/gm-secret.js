@@ -1,3 +1,5 @@
+import { libWrapper } from "./lib-wrapper-shim/shim.js";
+
 Hooks.on("ready", async () => {
     // Add custom stylesheet to TinyMCE Config
     CONFIG.TinyMCE.content_css.push("/modules/gm-secrets/css/gm-secret-style.css");
@@ -16,6 +18,13 @@ Hooks.on("ready", async () => {
 
         // If the user is a GM, add a unique class to the body of the document so that we can selectively hide content when this class doesn't exist.
         $("body").addClass("game-master");
+    } else {
+        // Wrap TextEditor.enrichHTML to remove GM secret sections
+        libWrapper.register("gm-secrets", "TextEditor.enrichHTML", (wrapped, content, options) => {
+            const result = wrapped(content, options);
+            // remove gm-secret blocks depending on async
+            return options?.async ? result.then(removeGmSecret) : removeGmSecret(result);
+        });
     }
 
     // Wrap TextEditor.create to add the appropriate class to the created editor
@@ -30,20 +39,11 @@ Hooks.on("ready", async () => {
 
         return editor;
     }
-
-    // Wrap TextEditor.enrichHTML to remove GM secret sections if the user is not a GM
-    const oldEnrichHTML = TextEditor.enrichHTML;
-    TextEditor.enrichHTML = function () {
-        const content = oldEnrichHTML.apply(this, arguments);
-
-        const html = document.createElement("div");
-        html.innerHTML = content;
-
-        if (!game.user.isGM) {
-            let elements = html.querySelectorAll("section.gm-secret");
-            elements.forEach(e => e.parentNode.removeChild(e));
-        }
-
-        return html.innerHTML;
-    }
 });
+
+function removeGmSecret(content) {
+    const html = document.createElement("div");
+    html.innerHTML = content;
+    html.querySelectorAll("section.gm-secret").forEach(secret => secret.remove());
+    return html.innerHTML;
+}
