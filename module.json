@@ -8,10 +8,10 @@
     { "name": "kaelad", "discord": "kaelad#1693" }
   ],
   "esmodules": [
-    "gm-secret.js"
+    "src/gm-secret.js"
   ],
   "styles": [
-    "gm-secret-style.css"
+    "css/gm-secret-style.css"
   ],
   "compatibility": {
     "minimum": 10,

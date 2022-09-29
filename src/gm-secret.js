@@ -1,6 +1,6 @@
 Hooks.on("ready", async () => {
     // Add custom stylesheet to TinyMCE Config
-    CONFIG.TinyMCE.content_css.push("/modules/gm-secrets/gm-secret-style.css");
+    CONFIG.TinyMCE.content_css.push("/modules/gm-secrets/css/gm-secret-style.css");
 
     if (game.user.isGM) {
         // Add GM Secret section type

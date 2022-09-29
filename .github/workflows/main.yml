@@ -31,7 +31,7 @@ jobs:
           license: https://github.com/${{github.repository}}/blob/main/LICENSE
 
       # Create a zip file with all files required by the module to add to the release
-      - run: zip -r ./module.zip module.json LICENSE gm-secret.js gm-secret-style.css
+      - run: zip -r ./module.zip module.json LICENSE css/ src/
 
       # Create a release for this specific version
       - name: Update Release with Files
