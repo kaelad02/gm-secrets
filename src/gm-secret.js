@@ -1,10 +1,10 @@
 import { libWrapper } from "./lib-wrapper-shim/shim.js";
 
 Hooks.on("ready", async () => {
-    // Add custom stylesheet to TinyMCE Config
-    CONFIG.TinyMCE.content_css.push("/modules/gm-secrets/css/gm-secret-style.css");
-
     if (game.user.isGM) {
+        // Add custom stylesheet to TinyMCE Config
+        CONFIG.TinyMCE.content_css.push("/modules/gm-secrets/css/gm-secret-style.css");
+
         // Add GM Secret section type
         const customFormats = CONFIG.TinyMCE.style_formats.find(x => x.title === "Custom");
         customFormats.items.push(
@@ -15,10 +15,10 @@ Hooks.on("ready", async () => {
                 wrapper: true
             }
         );
-
-        // If the user is a GM, add a unique class to the body of the document so that we can selectively hide content when this class doesn't exist.
-        $("body").addClass("game-master");
     } else {
+        // Add custom stylesheet to TinyMCE to hide gm-secret blocks while editing
+        CONFIG.TinyMCE.content_css.push("/modules/gm-secrets/css/not-gm.css");
+
         // Wrap TextEditor.enrichHTML to remove GM secret sections
         libWrapper.register("gm-secrets", "TextEditor.enrichHTML", (wrapped, content, options) => {
             const result = wrapped(content, options);
@@ -28,7 +28,7 @@ Hooks.on("ready", async () => {
     }
 
     // Wrap TextEditor.create to add the appropriate class to the created editor
-    const oldCreate = TextEditor.create;
+    /* const oldCreate = TextEditor.create;
     TextEditor.create = async function (options={}, content="") {
         const editor = await oldCreate.apply(this, arguments);
 
@@ -38,7 +38,7 @@ Hooks.on("ready", async () => {
         }
 
         return editor;
-    }
+    } */
 });
 
 function removeGmSecret(content) {

@@ -1,0 +1,4 @@
+/* Styling for non-GMs */
+section.gm-secret {
+  display: none;
+}
