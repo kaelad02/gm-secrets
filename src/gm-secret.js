@@ -47,3 +47,51 @@ function removeGmSecret(content) {
     html.querySelectorAll("section.gm-secret").forEach(secret => secret.remove());
     return html.innerHTML;
 }
+
+Hooks.on("getProseMirrorMenuDropDowns", (menu, config)=>{
+    console.log("gm-secret |", config);
+    console.log("gm-secret |", "menu.schema.nodes", menu.schema.nodes);
+
+
+
+    const blockActions = config.format.entries.find(e => e.action === "block");
+    if(blockActions) {
+        blockActions.children.push({
+            action: "gm-secret",
+            title: "GM Secret",
+            priority: 1,
+            node: menu.schema.nodes.gmSecret,
+            //node: gmSecret,
+            cmd: () => {
+                menu._toggleBlock(menu.schema.nodes.gmSecret, ProseMirror.commands.wrapIn);
+                /* this._toggleBlock(this.schema.nodes.secret, wrapIn, {
+                    attrs: {
+                        id: `secret-${foundry.utils.randomID()}`
+                    }
+                }); */
+            }
+        });
+    }
+});
+
+const gmSecret = {
+    content: "block+",
+    group: "block",
+    defining: true,
+    parseDOM: [{ tag: "section" }],
+    toDOM: () => ["section", { class: "secret gm-secret" }, 0],
+};
+
+Hooks.on("createProseMirrorEditor", (uuid, plugins, options) => {
+    //console.log("gm-secret |", uuid, plugins, options);
+    //console.log("gm-secret |", plugins.menu);
+    //console.log("gm-secret |", plugins.menu.view);
+
+    console.log("gm-secret | plugins", plugins);
+    console.log("gm-secret | options", options);
+
+    //options.state.config.schema.nodes.gmSecret = gmSecret;
+
+    const compiledNode = new ProseMirror.Schema({nodes: {gmSecret}});
+    options.state.config.schema.nodes.gmSecret = compiledNode.nodes.gmSecret;
+});
